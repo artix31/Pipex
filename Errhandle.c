@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:01:54 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/31 10:37:08 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:04:00 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@ void	ft_errmsg(char *msg, int errno)
 		ft_putstr_fd(msg, 2);
 		exit(errno);
 	}
-	// else if (msg == NULL)
-	// {
-	// 	int		devnull;
-	// 	devnull = open("/dev/null", O_WRONLY);
-	// 	dup2(devnull, 2);
-	// 	close (devnull);
-	// 	exit(errno);
-	// }
 	else
 	{
 		perror("");

@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:24:14 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/28 01:53:34 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:06:14 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	**ft_mallocfinal(char **string, const char *s, char c)
 	int	count;
 	int	i;
 	int	x;
-	//char	**temp;
 
 	count = 0;
 	i = 0;
@@ -55,8 +54,6 @@ static char	**ft_mallocfinal(char **string, const char *s, char c)
 		}
 		i++;
 	}
-	// temp = string;
-	// ft_farray(string, 0);
 	return (string);
 }
 

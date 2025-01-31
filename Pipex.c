@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:46:45 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/31 11:00:14 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:04:48 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_cmd1_operation(char *argv[], char *envp[], int pipe_fd[])
 void	ft_cmd2_operation(char *argv[], char *envp[], int pipe_fd[])
 {
 	int	outfile;
-	//int	infilechk;
 
 	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile < 0)
@@ -41,13 +40,6 @@ void	ft_cmd2_operation(char *argv[], char *envp[], int pipe_fd[])
 		close_fds(pipe_fd, 2);
 		ft_errmsg("File Creation Failed\n", outfile);
 	}
-	// infilechk = open(argv[1], O_RDONLY);
-	// if (infilechk < 0)
-	// {
-	// 	close_fds(pipe_fd, 2);
-	// 	ft_errmsg("", infilechk);
-	// }
-	// close(infilechk);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	dup2(outfile, STDOUT_FILENO);
 	close(pipe_fd[0]);

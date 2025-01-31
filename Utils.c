@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:01:38 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/31 10:57:55 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:05:50 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_extra_chk(char *fcommand)
 {
-	if (access(fcommand, F_OK ) == 0)
+	if (access(fcommand, F_OK) == 0)
 	{
 		return (access(fcommand, X_OK | R_OK));
 	}
@@ -62,13 +62,8 @@ char	*ft_find_executable(char *envp[], char *cmd)
 	{
 		temp = ft_strjoin_gnl(paths[i], "/");
 		full_path = ft_strjoin_gnl(temp, cmd);
-		//free(temp);
 		if (access(full_path, X_OK) == 0)
-		{
-			//ft_farray(paths);
-			//free(paths);
 			return (full_path);
-		}
 		free(full_path);
 		i++;
 	}
@@ -84,7 +79,6 @@ int	execute(char *cmd, char *envp[])
 	fcommand = ft_split(cmd, ' ');
 	if (!fcommand || !fcommand[0])
 	{
-		//ft_farray(fcommand);
 		free(fcommand);
 		ft_errmsg("Invalid or Empty Command!!\n", 22);
 	}
