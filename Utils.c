@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:01:38 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/28 16:36:52 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/01/31 10:57:55 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_find_executable(char *envp[], char *cmd)
 		//free(temp);
 		if (access(full_path, X_OK) == 0)
 		{
-			ft_farray(paths);
+			//ft_farray(paths);
 			//free(paths);
 			return (full_path);
 		}
@@ -84,9 +84,9 @@ int	execute(char *cmd, char *envp[])
 	fcommand = ft_split(cmd, ' ');
 	if (!fcommand || !fcommand[0])
 	{
-		ft_farray(fcommand);
+		//ft_farray(fcommand);
 		free(fcommand);
-		ft_errmsg("Invalid or Empty Command!!", -1);
+		ft_errmsg("Invalid or Empty Command!!\n", 22);
 	}
 	if (ft_extra_chk(fcommand[0]))
 		exve = ft_strdup(fcommand[0]);
@@ -95,7 +95,7 @@ int	execute(char *cmd, char *envp[])
 	if (!exve)
 	{
 		ft_farray(fcommand);
-		ft_errmsg("Command not found || Invalid Command", 127);
+		ft_errmsg("Command not found || Invalid Command\n", 127);
 	}
 	execve(exve, fcommand, envp);
 	ft_errmsg("Execve Failed, Unable to Execute\n", -1);
