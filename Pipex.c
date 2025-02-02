@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:46:45 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/31 16:45:21 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:48:55 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_cmd1_operation(char *argv[], char *envp[], int pipe_fd[])
 	if (infile < 0)
 	{
 		close_fds(pipe_fd, 2);
-		ft_errmsg("Open Failed\n", infile);
+		ft_errmsg("Open Failed\n", 1);
 	}
 	dup2(infile, STDIN_FILENO);
 	dup2(pipe_fd[1], STDOUT_FILENO);
@@ -38,7 +38,7 @@ void	ft_cmd2_operation(char *argv[], char *envp[], int pipe_fd[])
 	if (outfile < 0)
 	{
 		close_fds(pipe_fd, 2);
-		ft_errmsg("File Creation Failed\n", outfile);
+		ft_errmsg("File Creation Failed\n", 1);
 	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	dup2(outfile, STDOUT_FILENO);
@@ -55,21 +55,21 @@ int	main(int argc, char *argv[], char *envp[])
 	int	status;
 
 	if (argc != 5)
-		ft_errmsg("wrong format, correct: <infile arg1 | arg2 > outfile\n", 127);
+		ft_errmsg("wrong format, correct: infile cmd1 cmd2 outfile\n", 1);
 	if (pipe(pipe_fd) == -1)
-		ft_errmsg("Pipe Failed\n", 32);
+		ft_errmsg("Pipe Failed\n", 1);
 	pid[0] = fork();
 	if (pid[0] == -1)
-		ft_errmsg("Fork Failed\n", -1);
+		ft_errmsg("Fork Failed\n", 1);
 	if (pid[0] == 0)
 		ft_cmd1_operation(argv, envp, pipe_fd);
 	pid[1] = fork();
 	if (pid[1] == -1)
-		ft_errmsg("Fork Failed\n", -1);
+		ft_errmsg("Fork Failed\n", 1);
 	if (pid[1] == 0)
 		ft_cmd2_operation(argv, envp, pipe_fd);
 	close_fds(pipe_fd, 2);
-	waitpid(pid[0], &status, 0);
+	waitpid(pid[0], NULL, 0);
 	waitpid(pid[1], &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));

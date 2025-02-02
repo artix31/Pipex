@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:01:54 by amashhad          #+#    #+#             */
-/*   Updated: 2025/02/02 18:10:41 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:24:33 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_errmsg(char *msg, int errno)
 {
-	if ((errno == 42) | (errno == 127))
+	if ((errno == 42) || (errno == 127) || (errno == 1))
 	{
 		ft_putstr_fd(msg, 2);
 		exit(errno);

@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:01:38 by amashhad          #+#    #+#             */
-/*   Updated: 2025/02/02 21:22:09 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:50:26 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_extra_chk(char *fcommand)
 		return (access(fcommand, X_OK | R_OK));
 	}
 	else
-		return (0);
+		return (-1);
 }
 
 char	**ft_get_paths(char *env[])
@@ -41,7 +41,7 @@ char	**ft_get_paths(char *env[])
 	if (!env[i])
 	{
 		ft_errmsg("No Path Variable.\n", -1);
-		exit(-1);
+		exit(1);
 	}
 	paths = ft_split((path + 5), ':');
 	if (!paths)
@@ -82,7 +82,7 @@ void	ft_path_as_args_chk(char *cmd, char **envp)
 		{
 			execve(cmd, args, envp);
 			ft_farray(args);
-			ft_errmsg("Command not found || Invalid command\n", 127);
+			ft_errmsg("Command not found\n", 127);
 		}
 		else
 		{
@@ -98,25 +98,26 @@ int	execute(char *cmd, char *envp[])
 	char	*exve;
 	char	**fcommand;
 
-	if (ft_strchr(cmd, '/') != NULL)
+	if (ft_strchr(cmd, '/') != 0)
 		ft_path_as_args_chk(cmd, envp);
 	fcommand = ft_split(cmd, ' ');
 	if (!fcommand || !fcommand[0])
 	{
-		free(fcommand);
-		ft_errmsg("Invalid or Empty Command!!\n", 22);
+		ft_farray(fcommand);
+		ft_errmsg("Invalid or Empty Command!!\n", 126);
 	}
-	if (ft_extra_chk(fcommand[0]))
+	if (!ft_extra_chk(fcommand[0]))
 		exve = ft_strdup(fcommand[0]);
 	else
 		exve = ft_find_executable(envp, fcommand[0]);
 	if (!exve)
 	{
 		ft_farray(fcommand);
-		ft_errmsg("Command not found || Invalid Command\n", 127);
+		ft_errmsg("Command not found\n", 127);
 	}
 	execve(exve, fcommand, envp);
-	ft_errmsg("Execve Failed, Unable to Execute\n", -1);
+	ft_errmsg("Execve Failed, Unable to Execute\n", 126);
+	free(exve);
 	ft_farray(fcommand);
 	exit(1);
 }
