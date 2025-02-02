@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:01:38 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/31 14:05:50 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/02/02 21:19:27 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,35 @@ char	*ft_find_executable(char *envp[], char *cmd)
 	return (NULL);
 }
 
+void	ft_path_as_args_chk(char *cmd, char **envp)
+{
+	char	**args;
+
+	args = ft_split(cmd, ' ');
+	if (access(cmd, F_OK) == 0)
+	{
+		if (access(cmd, X_OK) == 0)
+		{
+			execve(cmd, args, envp);
+			ft_farray(args);
+			ft_errmsg("Command not found || Invalid command\n", 127);
+		}
+		else
+		{
+			ft_farray(args);
+			return ;
+		}
+	}
+	return ;
+}
+
 int	execute(char *cmd, char *envp[])
 {
 	char	*exve;
 	char	**fcommand;
 
+	if (ft_strchr(cmd, '/') != NULL)
+		ft_path_as_args_chk(cmd, envp);
 	fcommand = ft_split(cmd, ' ');
 	if (!fcommand || !fcommand[0])
 	{
